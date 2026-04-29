@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.css">
+</head>
+
+<body>
+
+  <div id="app" class="ui container">
+    <h1>Фуррячий вещатель v6.2.1</h1>
+    
+    <notification-message type="error" header="Ой-ой, это не просто кот!">
+      <p>Твоя встреча с Сингулярикитти <b>отменена</b> причину можно узнать из блога ArtiFyber </p>
+    </notification-message>
+
+    <notification-message type="success" header="Успех, Beep-boop!">
+      <p>Твой рейс на планету <i>Esmire-4</i> подтвержден. Здесь рады протогенам и их друзьям!</p>
+    </notification-message>
+
+    <notification-message type="warning" header="Внимание!">
+      <p>Обнаружен критический дефицит PDG у вашего Аэрокета. Срочно отведите его к ближайшим механикам ПРОТО!</p>
+    </notification-message>
+
+    <notification-message header="Доброе утро! :3">
+      <p>Новый день во вселенной Folder18. Пожелайте Аккери и остальным хорошего дня</p>
+    </notification-message>
+  </div>
+
+  <script type="text/x-template" id="notification-message-template">
+    <div class="ui message" :class="type" v-if="!hidden">
+      <i class="close icon" @click="hide"></i>
+      <div class="header">
+        <i class="paw icon" v-if="type === 'success'"></i>
+        <i class="exclamation triangle icon" v-if="type === 'error'"></i>
+        {{header}}
+      </div>
+      <slot></slot>
+    </div>
+  </script>
+
+  <script src="https://unpkg.com/vue@3"></script>
+
+  <script>
+    const app = Vue.createApp({})
+
+    app.component('notification-message', {
+      template: '#notification-message-template',
+      props: {
+        type: { type: String, default: 'info' },
+        header: { type: String, default: 'Уведомление системы' }
+      },
+      data() {
+        return {
+          hidden: false
+        }
+      },
+      methods: {
+        hide() {
+          this.hidden = true
+        }
+      }
+    })
+
+    app.mount('#app')
+  </script>
+</body>
+</html>
